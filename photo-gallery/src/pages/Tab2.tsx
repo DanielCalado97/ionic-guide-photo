@@ -13,9 +13,10 @@ import {
   IonActionSheet,
 } from '@ionic/react';
 import { images, square, triangle } from 'ionicons/icons';
-
+import { usePhotoGallery } from '../hooks/usePhotoGallery';
 
 const Tab2: React.FC = () => {
+  const { takePhoto } = usePhotoGallery();
   return (
     <IonPage>
       <IonHeader>
@@ -36,7 +37,6 @@ const Tab2: React.FC = () => {
               <IonIcon icon={camera}></IonIcon>
             </IonFabButton>
           </IonFab>
-
       </IonContent>
     </IonPage>
   );
