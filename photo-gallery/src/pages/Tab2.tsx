@@ -13,10 +13,12 @@ import {
   IonActionSheet,
 } from '@ionic/react';
 import { images, square, triangle } from 'ionicons/icons';
-import { usePhotoGallery } from '../hooks/usePhotoGallery';
-
+import React, { useState } from 'react';
+import { usePhotoGallery, UserPhoto } from '../hooks/usePhotoGallery';
+// other imports
 const Tab2: React.FC = () => {
-  const { photos, takePhoto } = usePhotoGallery();
+  const { photos, takePhoto, deletePhoto } = usePhotoGallery();
+  const [photoToDelete, setPhotoToDelete] = useState<UserPhoto>();
   return (
     <IonPage>
       <IonHeader>
@@ -34,7 +36,7 @@ const Tab2: React.FC = () => {
           <IonRow>
             {photos.map((photo, index) => (
               <IonCol size="6" key={index}>
-                <IonImg src={photo.webviewPath} />
+                <IonImg onClick={() => setPhotoToDelete(photo)} src={photo.webviewPath} />
               </IonCol>
             ))}
           </IonRow>
@@ -44,6 +46,28 @@ const Tab2: React.FC = () => {
               <IonIcon icon={camera}></IonIcon>
             </IonFabButton>
           </IonFab>
+          <IonActionSheet
+            isOpen={!!photoToDelete}
+            buttons={[
+              {
+                text: 'Delete',
+                role: 'destructive',
+                icon: trash,
+                handler: () => {
+                  if (photoToDelete) {
+                    deletePhoto(photoToDelete);
+                    setPhotoToDelete(undefined);
+                  }
+                },
+              },
+              {
+                text: 'Cancel',
+                icon: close,
+                role: 'cancel',
+              },
+            ]}
+            onDidDismiss={() => setPhotoToDelete(undefined)}
+          />
       </IonContent>
     </IonPage>
   );
