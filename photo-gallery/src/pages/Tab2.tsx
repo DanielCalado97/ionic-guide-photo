@@ -39,9 +39,7 @@ const Tab2: React.FC = () => {
             ))}
           </IonRow>
         </IonGrid>
-        <ExploreContainer name="Tab 2 page" />
-
-          <IonFab vertical="bottom" horizontal="center" slot="fixed">
+            <IonFab vertical="bottom" horizontal="center" slot="fixed">
             <IonFabButton onClick={() => takePhoto()}>
               <IonIcon icon={camera}></IonIcon>
             </IonFabButton>
